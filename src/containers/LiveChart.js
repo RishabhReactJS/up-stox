@@ -35,6 +35,16 @@ function LiveChart() {
     //   label: "volume"
     // },
   ]
+  const getLocalStorageSize = () => {
+    var total = 0;
+    for (let x in localStorage) {
+        var amount = (localStorage[x].length * 2) / 1024 / 1024;
+        if (!isNaN(amount) && localStorage.hasOwnProperty(x)) {
+            total += amount;
+        }
+    }
+    return total.toFixed(2);
+};
 
   const handleOnlineUser = () => {
       const latestData = []
@@ -44,8 +54,16 @@ function LiveChart() {
           latestData[0] = data.split(',').map(value => parseFloat(value)).filter( (value, index) => index < 5)
           currentData.push(...latestData)
           updateLiveData([...currentData])
+          setInterval(() => {
+            const currntLocalStorageSiz = getLocalStorageSize()
+            console.log('in LocalStorageSiz >>>>>>>> ', currntLocalStorageSiz)
+            if (currntLocalStorageSiz > 0.1) {
+              localStorage.clear();
+            }
+          }, 60000)
+
           localStorage.setItem('liveData', JSON.stringify(currentData))
-          
+
     })
 }
   
@@ -55,6 +73,8 @@ function LiveChart() {
   }
 
   useEffect(() => {
+    const now = new Date();
+    localStorage.setItem('expiry', JSON.stringify(now.getTime()))
     handleOnlineUser();
     window.addEventListener('online', handleOnlineUser);
 

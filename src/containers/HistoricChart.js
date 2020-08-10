@@ -10,7 +10,7 @@ function HistoricChart() {
 
 
   const handleOnlineUser = () => {
-    API.get('historical',{ params: {
+    API.get('historicalsadass',{ params: {
         interval: 1,
       }})
     .then(resp => {
@@ -22,7 +22,8 @@ function HistoricChart() {
     })
     .catch(err => {
         console.log('Error occured while fetching historical data', err)
-        updateHistoriacalData(JSON.parse(localStorage.getItem('historicChart')) || [])
+        if("historicChart" in localStorage)
+          updateHistoriacalData(JSON.parse(localStorage.getItem('historicChart')))
     })
   }
   
