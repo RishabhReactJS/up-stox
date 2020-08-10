@@ -21,8 +21,8 @@ function HistoricChart() {
       updateHistoriacalData(renderData)
     })
     .catch(err => {
-        console.log('Error occured while fetching historical data', err, historicalData)
-        updateHistoriacalData(JSON.parse(localStorage.getItem('historicChart')))
+        console.log('Error occured while fetching historical data', err)
+        updateHistoriacalData(JSON.parse(localStorage.getItem('historicChart')) || [])
     })
   }
   
