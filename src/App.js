@@ -5,7 +5,6 @@ const Home = lazy(() => import('./containers/HistoricChart'));
 const LiveChart = lazy(() => import('./containers/LiveChart'));
 
 const App = () => {
-
   return <Router>
     <div>
       <nav>
@@ -26,8 +25,6 @@ const App = () => {
       </Switch>
     </Suspense>
   </Router>
-
-
 }
 
 export default App;
