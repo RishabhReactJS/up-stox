@@ -8,3 +8,12 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.Chart-container{
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+.Fallback-container{
+  text-align: center;
+}

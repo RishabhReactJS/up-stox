@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../App.css';
 import Charts from '../components/Charts.js'
+import {ThemeContext} from '../context/ThemeContext'
 
 import API from '../utils/API'
 
-function HistoricChart() {
+function HistoricChart(props) {
 
   const [historicalData, updateHistoriacalData] = useState([]);
   
   const handleOnlineUser = () => {
-    API.get('historicalsadass', {
+    API.get('historical', {
       params: {
         interval: 1,
       }
@@ -33,12 +34,16 @@ function HistoricChart() {
     window.addEventListener('online', handleOnlineUser);
   }, [])
 
+  const {selectedTheme} = useContext(ThemeContext);
+
   return (
-    <div className="App">
+    <div className="App" style={{background:selectedTheme.background, color: selectedTheme.color}}>
       <header className="App-header">
         Historial Chart
       </header>
+      <div className='Chart-container'>
       <Charts series={historicalData} type="candlestick" options={{ xaxis: { type: 'datetime' }, }} />
+      </div>
     </div>
   );
 }

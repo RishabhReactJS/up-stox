@@ -3,7 +3,7 @@ import '../App.css';
 import socket from '../utils/socketConfig'
 import { isArray } from 'util';
 import Charts from '../components/Charts.js'
-
+import {ThemeContext} from '../context/ThemeContext'
 
 function LiveChart() {
 
@@ -50,14 +50,15 @@ function LiveChart() {
       socket.unSubSocket();
     }
   }, [])
-
-
+  const {selectedTheme} = useContext(ThemeContext);
   return (
-    <div className="App">
+    <div className="App" style={{background:selectedTheme.background, color: selectedTheme.color}}>
       <header className="App-header">
         Live Chart
       </header>
+      <div className='Chart-container'>
       <Charts series={liveData} type="candlestick" options={{ xaxis: { type: 'datetime' }, }} />
+      </div>
     </div>
   );
 }
